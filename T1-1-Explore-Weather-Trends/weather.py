@@ -40,8 +40,17 @@ print("write success")
 f.close()
 
 #   plot line chart
-
-plt.plot(year,temp)
+year_int = []
+temp_float = []
+for item in year:
+    year_int.append(int(item))
+print(year_int)
+for item in temp:
+    temp_float.append(float(item))
+plt.xticks(np.arange(min(year_int)-1,max(year_int)+7,20.0))
+plt.yticks(np.arange(min(temp_float),max(temp_float)+1,0.5))
+plt.plot(year_int,temp_float)
 plt.ylabel('temperature')
 plt.xlabel('year')
+plt.title('Global Temperature Data 1840-2013')
 plt.show()
