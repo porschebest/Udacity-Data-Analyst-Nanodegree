@@ -62,7 +62,7 @@ def string_to_int_and_float(year=[], mov_avg_temp=[],year_out=[],temp_out=[]):
     for item in mov_avg_temp:
         temp_out.append(float(item))
     print('string to int and float success')
-
+    print('--end process data--')
 #   define variables for global, Taipei, Taichung, Kaohsiung
 #   global_data
 year_global = []
@@ -75,10 +75,10 @@ mov_avg_data_global = []
 year_int_global = []
 temp_float_global = []
 #   using functions to process global data
-extract_csv('global_data_1841-2013.csv',year_global,temp_global)
-moving_average(year_global,temp_global,mov_avg_data_global,mov_avg_temp_global)
-save_csv('moving_avg_global.csv',mov_avg_data_global)
-string_to_int_and_float(year_global,mov_avg_temp_global, year_int_global, temp_float_global)
+extract_csv('global_data_1841-2013.csv', year_global,temp_global)
+moving_average(year_global, temp_global, mov_avg_data_global, mov_avg_temp_global)
+save_csv('moving_avg_global.csv', mov_avg_data_global)
+string_to_int_and_float(year_global, mov_avg_temp_global, year_int_global, temp_float_global)
 
 #   city_data_Taipei(tpe)
 year_tpe = []
@@ -87,10 +87,10 @@ mov_avg_temp_tpe = []
 mov_avg_data_tpe =[]
 year_int_tpe = []
 temp_float_tpe = []
-extract_csv('city_data_taipei.csv',year_tpe,temp_tpe)
-moving_average(year_tpe,temp_tpe,mov_avg_data_tpe,mov_avg_temp_tpe)
-save_csv('moving_avg_taipei.csv',mov_avg_data_tpe)
-string_to_int_and_float(year_tpe,mov_avg_temp_tpe, year_int_tpe, temp_float_tpe)
+extract_csv('city_data_taipei.csv', year_tpe,temp_tpe)
+moving_average(year_tpe, temp_tpe, mov_avg_data_tpe,mov_avg_temp_tpe)
+save_csv('moving_avg_taipei.csv', mov_avg_data_tpe)
+string_to_int_and_float(year_tpe, mov_avg_temp_tpe, year_int_tpe, temp_float_tpe)
 
 #   city_data_Taiching(txg)
 year_txg = []
@@ -99,10 +99,10 @@ mov_avg_temp_txg = []
 mov_avg_data_txg =[]
 year_int_txg = []
 temp_float_txg = []
-extract_csv('city_data_taichung.csv',year_txg,temp_txg)
-moving_average(year_txg,temp_txg,mov_avg_data_txg,mov_avg_temp_txg)
-save_csv('moving_avg_taichung.csv',mov_avg_data_txg)
-string_to_int_and_float(year_txg,mov_avg_temp_txg, year_int_txg, temp_float_txg)
+extract_csv('city_data_taichung.csv', year_txg,temp_txg)
+moving_average(year_txg, temp_txg, mov_avg_data_txg, mov_avg_temp_txg)
+save_csv('moving_avg_taichung.csv', mov_avg_data_txg)
+string_to_int_and_float(year_txg, mov_avg_temp_txg, year_int_txg, temp_float_txg)
 
 #   city_data_Kaohsiung(khh)
 year_khh = []
@@ -111,17 +111,17 @@ mov_avg_temp_khh = []
 mov_avg_data_khh =[]
 year_int_khh = []
 temp_float_khh = []
-extract_csv('city_data_kaohsiung.csv',year_khh,temp_khh)
-moving_average(year_khh,temp_khh,mov_avg_data_khh,mov_avg_temp_khh)
-save_csv('moving_avg_kaohsiung.csv',mov_avg_data_khh)
-string_to_int_and_float(year_khh,mov_avg_temp_khh, year_int_khh, temp_float_khh)
+extract_csv('city_data_kaohsiung.csv', year_khh,temp_khh)
+moving_average(year_khh, temp_khh, mov_avg_data_khh, mov_avg_temp_khh)
+save_csv('moving_avg_kaohsiung.csv', mov_avg_data_khh)
+string_to_int_and_float(year_khh, mov_avg_temp_khh, year_int_khh, temp_float_khh)
 
 #   plot line chart
 fig, ax = plt.subplots()
-line_global = ax.plot(year_int_global,temp_float_global)
-line_tpe = ax.plot(year_int_tpe,temp_float_tpe)
-line_txg = ax.plot(year_int_txg,temp_float_txg)
-line_khh = ax.plot(year_int_khh,temp_float_khh)
+line_global = ax.plot(year_int_global, temp_float_global, label='global')
+line_tpe = ax.plot(year_int_tpe, temp_float_tpe, label='Taipei')
+line_txg = ax.plot(year_int_txg, temp_float_txg, label='Taichung')
+line_khh = ax.plot(year_int_khh, temp_float_khh, label='Kaohsiung')
 
 """
 single plot
@@ -132,4 +132,6 @@ plt.plot(year_int_global,temp_float_global)
 plt.ylabel('temperature')
 plt.xlabel('year')
 plt.title('Global and Local Temperature Trend 1850-2013')
+plt.legend() # show the labels
 plt.show()
+plt.savefig('Global and Local Temperature Trend 1850-2013.png')
