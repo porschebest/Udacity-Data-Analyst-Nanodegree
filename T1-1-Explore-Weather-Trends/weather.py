@@ -134,4 +134,4 @@ plt.xlabel('year')
 plt.title('Global and Local Temperature Trend 1850-2013')
 plt.legend() # show the label
 plt.show()
-fig.savefig('Global and Local Temperature Trend 1850-2013.png')
+fig.savefig('Global-and-Local-Temperature-Trend-1850-2013.png')
