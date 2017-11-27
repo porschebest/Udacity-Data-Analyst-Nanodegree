@@ -65,18 +65,38 @@ moving_average(year_tpe,temp_tpe,mov_avg_data_tpe,mov_avg_temp_tpe)
 save_csv('moving_avg_taipei.csv',mov_avg_data_tpe)
 
 
+
+
 #   plot line chart
-year_int = []
-temp_float = []
-for item in year_global:
-    if int(item) >= 1850:
-        year_int.append(int(item))
-for item in mov_avg_temp_global:
-    temp_float.append(float(item))
-plt.xticks(np.arange(min(year_int)-1,max(year_int)+7,20.0))
-plt.yticks(np.arange(min(temp_float),max(temp_float)+1,0.5))
-plt.plot(year_int,temp_float)
+year_int_global = []
+temp_float_global = []
+def string_to_int_and_float(year=[], mov_avg_temp=[],year_out=[],temp_out=[]):
+    for item in year:
+        if int(item) >= 1850:
+            year_out.append(int(item))
+    for item in mov_avg_temp:
+        temp_out.append(float(item))
+    print('string to int and float success')
+string_to_int_and_float(year_global,mov_avg_temp_global, year_int_global, temp_float_global)
+
+year_int_tpe = []
+temp_float_tpe = []
+string_to_int_and_float(year_tpe,mov_avg_temp_tpe, year_int_tpe, temp_float_tpe)
+"""
+plt.xticks(np.arange(min(year_int_global)-1,max(year_int_global)+7,20.0))
+plt.yticks(np.arange(min(temp_float_global),max(temp_float_global)+1,0.5))
+"""
+fig, ax = plt.subplots()
+line_global = ax.plot(year_int_global,temp_float_global)
+line_tpe = ax.plot(year_int_tpe,temp_float_tpe)
+"""
+line_txg = ax.plot(year_int_txg,temp_float_txg)
+line_khh = ax.plot(year_int_khh,temp_float_khh)
+"""
+"""
+plt.plot(year_int_global,temp_float_global)
+"""
 plt.ylabel('temperature')
 plt.xlabel('year')
-plt.title('Global Temperature Data 1850-2013')
+plt.title('Global and Local Temperature Trend 1850-2013')
 plt.show()
