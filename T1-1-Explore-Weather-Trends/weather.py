@@ -132,6 +132,6 @@ plt.plot(year_int_global,temp_float_global)
 plt.ylabel('temperature')
 plt.xlabel('year')
 plt.title('Global and Local Temperature Trend 1850-2013')
-plt.legend() # show the labels
+plt.legend() # show the label
 plt.show()
-plt.savefig('Global and Local Temperature Trend 1850-2013.png')
+fig.savefig('Global and Local Temperature Trend 1850-2013.png')
