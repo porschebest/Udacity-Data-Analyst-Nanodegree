@@ -8,15 +8,15 @@ calculate the moving averages then visualize the data through matplotlib Library
 
 
 #   global_data
-year = []
-temp = []
+year_global = []
+temp_global = []
 #   moving_average temperature only
-mov_avg_temp = []
+mov_avg_temp_global = []
 #   year, moving_average temperature
-mov_avg_data = []
+mov_avg_data_global = []
 
 #   open csv and extract data
-def extract_csv(filepath=''):
+def extract_csv(filepath='',year=[],temp=[]):
     #   open global weather data
     f = open(filepath)
     #   Extract data from csv to arrays
@@ -28,10 +28,8 @@ def extract_csv(filepath=''):
             year1 = year1.replace("\'","")
             temp.append(temp1)
             year.append(year1)
-    print(year)
-    print(temp)
     print("extract csv success")
-extract_csv('global_data_1841-2013.csv')
+extract_csv('global_data_1841-2013.csv',year_global,temp_global)
 
 #   calculate moving averages
 def moving_average(year=[],temp=[],mov_avg_data=[],mov_avg_temp=[]):
@@ -45,41 +43,40 @@ def moving_average(year=[],temp=[],mov_avg_data=[],mov_avg_temp=[]):
         mov_avg_temp.append(avg_temp)
         mov_avg_data.append('\"'+year[i+9]+'\"'+','+'\"'+str(avg_temp)+'\"'+','+'\n')
         i += 1
-    print(mov_avg_temp)
     print("calculate moving average success")
-moving_average(year,temp,mov_avg_data,mov_avg_temp)
+moving_average(year_global,temp_global,mov_avg_data_global,mov_avg_temp_global)
 
 #   save the moving average to csv
 def save_csv(filepath, mov_avg_data=[]):
     f = open(filepath, 'w')
     f.writelines(mov_avg_data)
     f.close()
-    print(mov_avg_data)
     print("save csv success")
-save_csv('moving_avg_global.csv',mov_avg_data)
+save_csv('moving_avg_global.csv',mov_avg_data_global)
 
 #   city_data_Taipei
 year_tpe = []
 temp_tpe = []
-mov_avg_tpe = []
-"""
-extract_csv('city_data_taipei.csv')
-moving_average(year_tpe,temp_tpe)
-save_csv('moving_avg_taipei.csv',mov_avg_tpe)
-"""
+mov_avg_temp_tpe = []
+mov_avg_data_tpe =[]
+
+extract_csv('city_data_taipei.csv',year_tpe,temp_tpe)
+moving_average(year_tpe,temp_tpe,mov_avg_data_tpe,mov_avg_temp_tpe)
+save_csv('moving_avg_taipei.csv',mov_avg_data_tpe)
+
 
 #   plot line chart
 year_int = []
 temp_float = []
-for item in year:
+for item in year_global:
     if int(item) >= 1850:
         year_int.append(int(item))
-for item in mov_avg_temp:
+for item in mov_avg_temp_global:
     temp_float.append(float(item))
 plt.xticks(np.arange(min(year_int)-1,max(year_int)+7,20.0))
 plt.yticks(np.arange(min(temp_float),max(temp_float)+1,0.5))
 plt.plot(year_int,temp_float)
 plt.ylabel('temperature')
 plt.xlabel('year')
-plt.title('Global Temperature Data 1840-2013')
+plt.title('Global Temperature Data 1850-2013')
 plt.show()
