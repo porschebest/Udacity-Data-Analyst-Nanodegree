@@ -1,3 +1,5 @@
+import time
+
 def check_duplicate(search_list):
     check_list = []
     count = 0
@@ -8,14 +10,14 @@ def check_duplicate(search_list):
             check_list.append(item)
     return count
 
-def continue_crawl(search_history,target_url):
-    while len(search_history) < 25 :
+def continue_crawl(search_history,target_url, max_steps=25):
+    while len(search_history) < max_steps :
         #   most recent article in the search_history is the target article -> False
         if(target_url in search_history):
             print('reach Philosophy')
             return False
         #   list is more than 25 urls -> False
-        elif len(search_history) > 25:
+        elif len(search_history) > max_steps:
             print('long route error')
             return False
         #   has a cycle in it -> False
@@ -26,5 +28,13 @@ def continue_crawl(search_history,target_url):
         else:
             print('continue')
             return True
-continue_crawl(['https://en.wikipedia.org/wiki/Philosophy','https://en.wikipedia.org/wiki/Floating_point'],
-                       'https://en.wikipedia.org/wiki/Philosophy')
+
+def web_crawl():
+    while continue_crawl(article_chain, target_url):
+        # download html of last article in article_chain
+        # find the first link in that html
+        first_link = find_first_link(article_chain[-1])
+        # add the first link to article chain
+        article_chain.append(first_link)
+        # delay for about two seconds
+        time.sleep(2)
