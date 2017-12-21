@@ -1,4 +1,6 @@
 import time
+import requests
+from bs4 import BeautifulSoup
 
 def check_duplicate(search_list):
     check_list = []
@@ -38,3 +40,20 @@ def web_crawl():
         article_chain.append(first_link)
         # delay for about two seconds
         time.sleep(2)
+
+def first_link(url):
+    # return the first link as string or return None if there's no link
+    #  get the HTML from the url
+    response = requests.get(url)
+    #  feed the HTML into BeautifulSoup
+    html = response.text
+    soup = BeautifulSoup(html, 'html.parser')
+    #  get the first link from the html
+    first_link = soup.div['mw-content-text']
+    print(first_link)
+    #  return the first link
+    if first_link != None:
+        return first_link
+    else:
+        return None
+first_link('https://en.wikipedia.org/wiki/Helsinki')
